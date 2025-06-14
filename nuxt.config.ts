@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import nora from "@primevue/themes/nora";
+require("dotenv").config();
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
@@ -114,9 +115,9 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    serverApiBase: "http://localhost:5000",
+    serverApiBase: process.env.apiBase,
     public: {
-      apiBase: "http://localhost:5000",
+      apiBase: process.env.apiBase,
       api: {
         Login: "/api/auth/login",
         UsersApi: "/api/users",

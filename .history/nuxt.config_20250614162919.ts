@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import nora from "@primevue/themes/nora";
+require("dotenv").config();
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
@@ -12,6 +13,7 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@vee-validate/nuxt",
     "@nuxtjs/fontaine",
+    "@nuxtjs/leaflet",
   ],
   veeValidate: {
     // disable or enable auto imports
@@ -93,7 +95,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "Ugarit Center",
+      title: "Restaurant",
       htmlAttrs: {
         lang: "en",
       },
@@ -105,26 +107,46 @@ export default defineNuxtConfig({
       link: [
         {
           rel: "icon",
-          href: "/logo/bluelogo.png",
+          href: "/logo/logo.png",
           type: "image/x-icon",
-        },
-        {
-          rel: "preconnect",
-          href: "https://admin.schooltec.org",
-          crossorigin: "",
         },
       ],
       script: [],
     },
   },
   runtimeConfig: {
-    serverApiBase: "https://admin.schooltec.org",
+    serverApiBase: process.env.apiBase,
     public: {
-      apiBase: "https://admin.schooltec.org",
-      api: {},
+      apiBase: process.env.apiBase,
+      api: {
+        Login: "/api/auth/login",
+        UsersApi: "/api/users",
+        CreateUser: "/api/auth/register",
+        CreateManager: "/api/auth/registerManager",
+        RestaurantsApi: "/api/restaurant",
+        CategoriesApi: "/api/category",
+        MealsApi: "/api/products",
+        SittingsApi: "/api/settings",
+        OrdersApi: "/api/orders",
+      },
       globalDefaultImage: "",
       cachedTime: 60 * 60 * 2 * 1000, // 60: second(1 minutes), 60: minutes(1 hours), 2 hours, 1000: milliseconds
     },
+  },
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/scss/theme/variables.scss" as *;',
+        },
+      },
+    },
+  },
+
+  // Font optimization
+  fontMetrics: {
+    fonts: ["Tajawal", "Roboto"],
   },
   devtools: { enabled: true },
 });
