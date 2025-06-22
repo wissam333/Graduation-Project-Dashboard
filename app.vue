@@ -20,8 +20,6 @@ const titles = {
   ar: "مطعم",
 };
 
-
-
 // Update the title dynamically
 useHead({
   title: computed(() => titles[locale.value]),
