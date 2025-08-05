@@ -116,7 +116,7 @@
             <span class="label"
               >{{ $i18n.locale === "ar" ? "السائق" : "Driver" }}:</span
             >
-            <span class="value">{{ order?.driverId.username }}</span>
+            <span class="value">{{ order?.driverId?.username ?? "----" }}</span>
           </div>
           <div class="summary-row">
             <span class="label"
