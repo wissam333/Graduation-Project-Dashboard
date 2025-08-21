@@ -166,11 +166,7 @@
 </template>
 
 <script setup>
-let L;
-if (process.client) {
-  L = await import("leaflet");
-}
-
+import { L } from "@nuxtjs/leaflet";
 const props = defineProps({
   grouping: {
     type: Object,
@@ -238,22 +234,21 @@ const acceptRoute = () => {
 
 // Compute midpoints between each pair of coordinates for step numbers
 const routeMidpoints = computed(() => {
-  if (process.client) {
-    const midpoints = [];
+  const midpoints = [];
 
-    // Start from index 1 to skip the restaurant-to-first-stop segment
-    for (let i = 0; i < routePath.value.length - 1; i++) {
-      const start = routePath.value[i];
-      const end = routePath.value[i + 1];
+  // Start from index 1 to skip the restaurant-to-first-stop segment
+  for (let i = 0; i < routePath.value.length - 1; i++) {
+    const start = routePath.value[i];
+    const end = routePath.value[i + 1];
 
-      // Calculate midpoint
-      const midLat = (start[0] + end[0]) / 2;
-      const midLng = (start[1] + end[1]) / 2;
+    // Calculate midpoint
+    const midLat = (start[0] + end[0]) / 2;
+    const midLng = (start[1] + end[1]) / 2;
 
-      midpoints.push({
-        position: [midLat, midLng],
-        icon: L.divIcon({
-          html: `<div style="
+    midpoints.push({
+      position: [midLat, midLng],
+      icon: L.divIcon({
+        html: `<div style="
           background: white;
           border: 2px solid #19ad7b;
           border-radius: 50%;
@@ -266,27 +261,24 @@ const routeMidpoints = computed(() => {
           color: #19ad7b;
           box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         ">${i + 1}</div>`,
-          className: "",
-          iconSize: [24, 24],
-        }),
-      });
-    }
-
-    return midpoints;
+        className: "",
+        iconSize: [24, 24],
+      }),
+    });
   }
+
+  return midpoints;
 });
 
 // Fit map to bounds when component is mounted
 onMounted(() => {
-  if (process.client) {
-    nextTick(() => {
-      if (map.value?.leafletObject && process.client) {
-        const leafletMap = map.value.leafletObject;
-        const bounds = L.latLngBounds(routePath.value);
-        leafletMap.fitBounds(bounds, { padding: [50, 50] });
-      }
-    });
-  }
+  nextTick(() => {
+    if (map.value?.leafletObject && process.client) {
+      const leafletMap = map.value.leafletObject;
+      const bounds = L.latLngBounds(routePath.value);
+      leafletMap.fitBounds(bounds, { padding: [50, 50] });
+    }
+  });
 });
 </script>
 

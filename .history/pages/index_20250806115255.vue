@@ -101,7 +101,7 @@ const isLoading = ref(false);
 // Handle Form Submit
 const handleSubmit = async (values, actions) => {
   isLoading.value = true;
-  const { data, error } = await useFetch(`${api.Login}`, {
+  const { data } = await useFetch(`${api.Login}`, {
     baseURL: apiBase,
     method: "POST",
     body: values,
@@ -119,11 +119,11 @@ const handleSubmit = async (values, actions) => {
     useAuth().value.isAuthenticated = true;
     useUserInfo().value = data.value.data;
     localStorage.setItem("userInfo", JSON.stringify(data.value.data));
-    if (data.value.data?.role == "0") {
+    if (data.value.data.role == "0") {
       await navigateTo("/admin/main");
-    } else if (data.value.data?.role == "2") {
+    } else if (data.value.data.role == "2") {
       await navigateTo("/manager/main");
-    } else if (data.value.data?.role == "3") {
+    } else if (data.value.data.role == "3") {
       await navigateTo("/driver/orders");
     } else {
       await navigateTo({
@@ -137,8 +137,8 @@ const handleSubmit = async (values, actions) => {
   } else {
     $awn.alert(
       locale.value === "ar"
-        ? `معلومات الدخول خاطئة`
-        : `Invalid login information`
+        ? ` حدث خطأ ,${data.value.message}`
+        : `An error occurred, ${data.value.message}`
     );
   }
 };

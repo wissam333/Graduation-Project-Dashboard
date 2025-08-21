@@ -757,8 +757,7 @@ const exportToExcel = () => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
-    font-size: 18px;
+    max-width: 150px;
   }
 }
 

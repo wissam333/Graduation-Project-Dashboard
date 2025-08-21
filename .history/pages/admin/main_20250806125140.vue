@@ -201,8 +201,9 @@ import Card from "primevue/card";
 import Chart from "primevue/chart";
 import Dropdown from "primevue/dropdown";
 definePageMeta({
-  middleware: ["not-authorize", "manager"],
+  middleware: ["not-authorize", "admin"],
 });
+
 const {
   public: { apiBase },
 } = useRuntimeConfig();
@@ -403,25 +404,14 @@ const barChartOptions = ref({
       },
     },
     y: {
-      type: "linear",
-      display: true,
-      position: "left",
-      title: {
-        display: true,
-        text: "Revenue ($)",
-        color: "#4caf50",
-      },
       ticks: {
-        color: "#4caf50",
-        callback: function (value) {
-          return "$" + value;
-        },
+        color: "#495057",
       },
       grid: {
         color: "#ebedef",
       },
     },
-    y1: {
+     y1: {
       type: "linear",
       display: true,
       position: "right",
@@ -482,7 +472,6 @@ const setCategoriesChartData = (categories) => {
         backgroundColor: greenPalette.slice(0, categories.length),
         borderColor: "#fff",
         borderWidth: 1,
-        yAxisID: "y1",
       },
       {
         label: "Revenue",
@@ -490,7 +479,6 @@ const setCategoriesChartData = (categories) => {
         backgroundColor: "#9c27b0",
         borderColor: "#fff",
         borderWidth: 1,
-        yAxisID: "y",
       },
     ],
   };
@@ -708,6 +696,7 @@ const formatDate = (dateString) => {
 }
 
 .chart {
+  width: 100%;
   height: 300px;
 }
 
@@ -770,6 +759,7 @@ const formatDate = (dateString) => {
 .trend-indicator.negative {
   color: red;
 }
+
 .positive {
   span {
     transform: rotate(280deg);

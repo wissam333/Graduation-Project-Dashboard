@@ -101,7 +101,7 @@ const isLoading = ref(false);
 // Handle Form Submit
 const handleSubmit = async (values, actions) => {
   isLoading.value = true;
-  const { data, error } = await useFetch(`${api.Login}`, {
+  const { data } = await useFetch(`${api.Login}`, {
     baseURL: apiBase,
     method: "POST",
     body: values,
@@ -137,8 +137,8 @@ const handleSubmit = async (values, actions) => {
   } else {
     $awn.alert(
       locale.value === "ar"
-        ? `معلومات الدخول خاطئة`
-        : `Invalid login information`
+        ? ` حدث خطأ ,${data.value.message}`
+        : `An error occurred, ${data.value.message}`
     );
   }
 };

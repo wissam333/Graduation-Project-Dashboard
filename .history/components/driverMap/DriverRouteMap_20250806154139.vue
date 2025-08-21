@@ -166,10 +166,7 @@
 </template>
 
 <script setup>
-let L;
-if (process.client) {
-  L = await import("leaflet");
-}
+import L from "leaflet";
 
 const props = defineProps({
   grouping: {

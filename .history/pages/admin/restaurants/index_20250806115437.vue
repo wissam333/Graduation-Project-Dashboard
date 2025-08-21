@@ -59,7 +59,7 @@
                   <img v-else src="/logo/logo.png" alt="Default avatar" />
                 </div>
                 <div class="User-info">
-                  <h5>{{ user.name }}</h5>
+                  <p>{{ user.name }}</p>
                 </div>
               </td>
               <td class="email-cell">
@@ -757,8 +757,7 @@ const exportToExcel = () => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
-    font-size: 18px;
+    max-width: 150px;
   }
 }
 
